@@ -1,7 +1,7 @@
-import axios from "axios"
-import { useRef, useState } from "react"
-import { useEffect } from "react"
-import UserList from "./components/UserList"
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import UserList from "./components/UserList";
+import Modal from "./components/Modal";
 
 const BASE_URL = "https://users-crud.academlo.tech"
 
@@ -10,6 +10,17 @@ function App() {
   const [userToUpdate, setUserToUpdate] = useState(null)
 
   const formRef = useRef(null)
+
+  const [showModal, setShowModal] = useState(false)
+
+  const handleOpenModal = () => {
+    setShowModal(true)
+
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,13 +38,13 @@ function App() {
 
   const createUser = (newUser, form) => {
     axios
-      .post(BASE_URL + "/users/", newUser)
+      .post("https://users-crud.academlo.tech/users/", newUser)
       .then(({ data: newUser }) => {
         form.reset()
-        alert("Auto creado correctamente")
+        alert("Usuario creado correctamente")
         setUsers([...users, newUser])
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err))  
   }
 
   const deleteUser = (idUser) => {
@@ -76,7 +87,7 @@ function App() {
 
   useEffect(() => {
     if (userToUpdate !== null) {
-      //? Tengo la certeza de que en el estado hay informacion de un auto
+      //? Tengo la certeza de que en el estado hay informacion de un usuario
       //TODO Montar la informacion en el formulario
       formRef.current.first_name.value = userToUpdate.first_name
       formRef.current.last_name.value = userToUpdate.last_name
@@ -86,52 +97,20 @@ function App() {
     }
   }, [userToUpdate])
   return (
-    <main className="bg-black text-white min-h-screen font-semibold text-lg p-4">
+    <main className="bg-white text-white min-h-screen font-semibold text-lg p-4">
       <h2 className="text-center">CRUD Usuarios</h2>
-      <form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        className="max-w-[300px] mx-auto grid gap-2"
-      >
-        <label className="grid gap-1">
-          <span>
-            Nombre <span className="text-red-500">*</span>
-          </span>
-          <input name="first_name" type="text" className="text-black" required />
-        </label>
 
-        <label className="grid gap-1">
-          <span>
-            Apellido <span className="text-red-500">*</span>
-          </span>
-          <input name="last_name" type="text" className="text-black" required />
-        </label>
-
-        <label className="grid gap-1">
-          <span>
-            Correo <span className="text-red-500">*</span>
-          </span>
-          <input name="email" type="text" className="text-black" required />
-        </label>
-
-        <label className="grid gap-1">
-          <span>
-            Contraseña <span className="text-red-500">*</span>
-          </span>
-          <input name="password" type="number" className="text-black" required />
-        </label>
-
-        <label className="grid gap-1">
-          <span>
-            Fecha de nacimiento
-          </span>
-          <input name="birthday" type="number" className="text-black" />
-        </label>
-
-        <button className="bg-blue-500 rounded-md mt-2 p-1 hover:bg-blue-600 transition-colors">
-          {userToUpdate ? "Guardar cambios del usuario" : "Crear usuario"}
+      <button onClick={handleOpenModal} className="bg-green-500 rounded-md mt-2 p-1 hover:bg-green-600 transition-colors">
+          {userToUpdate ? "Editar datos del usuario" : "Crear usuario"}
         </button>
-      </form>
+
+      <Modal 
+        handleSubmit={handleSubmit}
+        userToUpdate={userToUpdate}
+        formRef={formRef}
+        showModal={showModal}
+        onCloseModal={handleCloseModal}
+      />
       <UserList
         users={users}
         deleteUser={deleteUser}
