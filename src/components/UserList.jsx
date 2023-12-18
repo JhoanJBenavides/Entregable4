@@ -1,4 +1,4 @@
-import { IconEdit, IconTrashFilled } from "@tabler/icons-react";
+import { IconPencil, IconTrash } from "@tabler/icons-react";
 
 const UserList = ({ users, deleteUser, handleClickUpdate }) => {
   return (
@@ -15,18 +15,19 @@ const UserList = ({ users, deleteUser, handleClickUpdate }) => {
             <li className="line-clamp-1"><span className="capitalize font-bold">Fecha de nacimiento: </span> {user.birthday}</li>
           <div className="flex gap-2 p-3 justify-column">
             <button
-              onClick={() => handleClickUpdate(user)}
-              className="rounded-md p-1 text-white bg-blue-500"
-            >
-              <IconEdit />
-            </button>
-            
-            <button
               onClick={() => deleteUser(user.id)}
               className="rounded-md p-1 text-white bg-red-500"
             >
-              <IconTrashFilled />
+              <IconTrash />
             </button>
+
+            <button
+              onClick={() => handleClickUpdate(user)}
+              className="rounded-md p-1 text-gray-600 border "
+            >
+              <IconPencil />
+            </button>
+
           </div>
           </ul>
         </article>

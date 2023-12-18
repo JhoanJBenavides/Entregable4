@@ -1,4 +1,4 @@
-import { IconArrowsMinimize } from "@tabler/icons-react"
+import { IconX } from "@tabler/icons-react"
 
 
 const Modal = ({handleSubmit, userToUpdate, formRef, showModal, handleOpenModal, onCloseModal}) => {
@@ -10,7 +10,7 @@ const Modal = ({handleSubmit, userToUpdate, formRef, showModal, handleOpenModal,
         <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className="bg-white p-4 rounded-xl max-w-[300px] mx-auto grid gap-2 relative"
+        className="bg-white p-4 max-w-[300px] mx-auto grid gap-2 relative"
       >
         <label className="grid gap-1 text-black">
           <span>
@@ -47,12 +47,12 @@ const Modal = ({handleSubmit, userToUpdate, formRef, showModal, handleOpenModal,
           <input name="birthday" type="date" className="text-black border rounded-md p-1 outline-none" />
         </label>
 
-        <button onClick={handleOpenModal} className="bg-green-500 rounded-md mt-2 p-1 hover:bg-green-600 transition-colors">
-          {userToUpdate ? "Guardar cambios del usuario" : "Crear usuario"}
+        <button onClick={handleOpenModal} className="bg-blue-500 mt-2 p-1 hover:bg-blue-600 transition-colors">
+          {userToUpdate ? "Guardar cambios del usuario" : "Agregar nuevo usuario"}
         </button>
 
         <button onClick={onCloseModal} className="absolute top-2 right-2 text-black">
-            <IconArrowsMinimize size={25} />
+            <IconX size={25} />
         </button>
 
         

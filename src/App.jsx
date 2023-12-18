@@ -98,10 +98,9 @@ function App() {
   }, [userToUpdate])
   return (
     <main className="bg-white text-white min-h-screen font-semibold text-lg p-4">
-      <h2 className="text-center">CRUD Usuarios</h2>
-
-      <button onClick={handleOpenModal} className="bg-green-500 rounded-md mt-2 p-1 hover:bg-green-600 transition-colors">
-          {userToUpdate ? "Editar datos del usuario" : "Crear usuario"}
+      
+      <button onClick={handleOpenModal} className="bg-blue-500 mt-2 p-1 hover:bg-blue-600 transition-colors">
+          {userToUpdate ? "Editar datos del usuario" : "Crear nuevo usuario"}
         </button>
 
       <Modal 
